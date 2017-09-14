@@ -1373,7 +1373,7 @@ namespace Common.Constants
         SPELL_ATTR_EX_UNK21 = 0x00200000,            // 21
         SPELL_ATTR_EX_REQ_COMBO_POINTS = 0x00400000,            // 22 Use combo points (in 4.x not required combo point target selected)
         SPELL_ATTR_EX_UNK23 = 0x00800000,            // 23
-        SPELL_ATTR_EX_UNK24 = 0x01000000,            // 24 Req fishing pole!= null ?
+        SPELL_ATTR_EX_UNK24 = 0x01000000,            // 24 Req fishing pole?
         SPELL_ATTR_EX_UNK25 = 0x02000000,            // 25 not set in 2.4.2
         SPELL_ATTR_EX_UNK26 = 0x04000000,            // 26
         SPELL_ATTR_EX_UNK27 = 0x08000000,            // 27

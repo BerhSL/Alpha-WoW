@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WorldServer.Storage;
-using static WorldServer.Game.Objects.UnitExtensions.TalentExtension;
+using WorldServer.Game.Objects.UnitExtensions;
 
 namespace WorldServer.Game.Structs
 {
@@ -110,7 +110,7 @@ namespace WorldServer.Game.Structs
             pw.WriteUInt32(0);
             pw.WriteUInt32(this.PetSpellDataID);
             pw.WriteUInt32(this.ModelID);
-            pw.WriteUInt16(0); //??
+            pw.WriteUInt16(0); //!= null ?
             return pw;
         }
 
@@ -123,8 +123,8 @@ namespace WorldServer.Game.Structs
                 this.CombatReach = cmi.CombatReach;
             }
             
-            this.VendorItems = Database.VendorItems.TryGet(this.Entry)?.ToList(); //Shallow copy
-            this.VendorSpells = Database.VendorSpells.TryGet(this.Entry)?.ToDictionary(x => x.SpellId, y => y);
+            this.VendorItems = Database.VendorItems.TryGet(this.Entry).ToList(); //Shallow copy
+            this.VendorSpells = Database.VendorSpells.TryGet(this.Entry).ToDictionary(x => x.SpellId, y => y);
         }
     }
 }

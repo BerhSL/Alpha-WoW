@@ -53,7 +53,7 @@ namespace WorldServer.Game.Objects
 
                 pkt.WriteString(Leader.Name);
                 pkt.WriteUInt64(Leader.Guid);
-                pkt.WriteUInt8(1); //??
+                pkt.WriteUInt8(1); //!= null ?
 
                 foreach (Player mem in Members.Values)
                 {
@@ -61,7 +61,7 @@ namespace WorldServer.Game.Objects
 
                     pkt.WriteString(mem.Name);
                     pkt.WriteUInt64(mem.Guid);
-                    pkt.WriteUInt8(0); //??
+                    pkt.WriteUInt8(0); //!= null ?
                 }
 
                 pkt.WriteUInt8((byte)LootMethod);

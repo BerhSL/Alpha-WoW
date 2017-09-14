@@ -42,10 +42,10 @@ namespace WorldServer.Packets.Handlers
             QuestTemplate quest = Database.QuestTemplates.TryGet(questid);
 
             WorldObject obj = null; //TODO add gameobject check
-            obj = Database.Creatures.TryGet<WorldObject>(guid) ??
+            obj = Database.Creatures.TryGet<WorldObject>(guid) != null ? Database.Creatures.TryGet<WorldObject>(guid) :
                   Database.Items.TryGet<WorldObject>(guid); //Try to find the object
 
-            if (obj == null || quest == null || obj?.HasQuest(questid) == false) //Check the quest/giver exists
+            if (obj == null || quest == null || obj.HasQuest(questid) == false) //Check the quest/giver exists
                 return;
 
             if (!manager.Character.CheckQuestRequirements(quest, false) || !manager.Character.CheckQuestLevel(quest, false))
@@ -68,10 +68,10 @@ namespace WorldServer.Packets.Handlers
             QuestTemplate quest = Database.QuestTemplates.TryGet(questid);
 
             WorldObject obj = null; //TODO add gameobject check
-            obj = Database.Creatures.TryGet<WorldObject>(guid) ??
+            obj = Database.Creatures.TryGet<WorldObject>(guid) != null ? Database.Creatures.TryGet<WorldObject>(guid) :
                   Database.Items.TryGet<WorldObject>(guid); //Try to find the object
 
-            if (obj == null || quest == null || obj?.HasQuest(questid) == false) //Check the quest/giver exists
+            if (obj == null || quest == null || obj.HasQuest(questid) == false) //Check the quest/giver exists
                 return;
             if (obj.IsTypeOf(ObjectTypes.TYPE_UNIT) && (((Creature)obj).IsEnemyTo(manager.Character)))
                 return;

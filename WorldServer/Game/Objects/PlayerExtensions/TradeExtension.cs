@@ -44,8 +44,8 @@ namespace WorldServer.Game.Objects.PlayerExtensions.Trade
             pkt.WriteUInt8((byte)(trader_state ? 1 : 0));
             pkt.WriteUInt32(TradeData.TRADE_SLOT_COUNT);
             pkt.WriteUInt32(data.Money);
-            pkt.WriteUInt32(0); //proposedEnchantmentSlot ??
-            pkt.WriteUInt32(0); //proposedEnchantmentSpellID ??
+            pkt.WriteUInt32(0); //proposedEnchantmentSlot != null ?
+            pkt.WriteUInt32(0); //proposedEnchantmentSpellID != null ?
 
             for (byte i = 0; i < TradeData.TRADE_SLOT_COUNT; i++)
             {
@@ -84,8 +84,8 @@ namespace WorldServer.Game.Objects.PlayerExtensions.Trade
         public Player Trader { get; set; }
         public Player Player { get; set; }
         public TradeData TraderData { get { return Trader.TradeInfo; } }
-        public bool Accepted { get; private set; } = false;
-        public uint Money { get; private set; } = 0;
+        public bool Accepted { get; private set; }
+        public uint Money { get; private set; }
 
         private ulong[] items = new ulong[TRADE_SLOT_COUNT];
 

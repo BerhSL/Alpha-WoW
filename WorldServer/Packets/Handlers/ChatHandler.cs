@@ -96,7 +96,7 @@ namespace WorldServer.Packets.Handlers
 
             uint textemote = packet.ReadUInt32();
             ulong guid = packet.ReadUInt64();
-            Unit target = Database.Creatures.TryGet<Unit>(guid) ?? Database.Players.TryGet<Unit>(guid);
+            Unit target = Database.Creatures.TryGet<Unit>(guid) != null ? Database.Creatures.TryGet<Unit>(guid) : Database.Players.TryGet<Unit>(guid);
 
             if (!DBC.EmotesText.ContainsKey((int)textemote))
                 return;

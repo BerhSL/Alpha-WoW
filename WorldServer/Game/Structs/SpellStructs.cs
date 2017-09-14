@@ -352,7 +352,7 @@ namespace WorldServer.Game.Structs
         public int GetValue(Unit target, int index)
         {
             Player p = (Caster.IsTypeOf(ObjectTypes.TYPE_PLAYER) ? (Player)Caster : null);
-            uint combopoints = p?.ComboPoints ?? 0;
+            uint combopoints = p.ComboPoints;
 
             byte level = Caster.Level;
             if (level > Spell.maxLevel && Spell.maxLevel > 0)
@@ -535,10 +535,10 @@ namespace WorldServer.Game.Structs
             uint CatergoryRecovery = Spell.CategoryRecoveryTime;
 
             if (Spell.Id == 2764) //Throw spell uses the equipped ranged item's attackspeed
-                Recovery = p.Inventory.Backpack.GetItem((byte)InventorySlots.SLOT_RANGED)?.BaseAttackTime ?? Recovery;
+                Recovery = p.Inventory.Backpack.GetItem((byte)InventorySlots.SLOT_RANGED).BaseAttackTime != 0 ? p.Inventory.Backpack.GetItem((byte)InventorySlots.SLOT_RANGED).BaseAttackTime : Recovery;
 
             if (Spell.Id == 5019) //Shoot spell uses the equipped wand's attackspeed
-                Recovery = p.Inventory.Backpack.GetItem((byte)InventorySlots.SLOT_RANGED)?.Template.WeaponSpeed ?? Recovery;
+                Recovery = p.Inventory.Backpack.GetItem((byte)InventorySlots.SLOT_RANGED).Template.WeaponSpeed != 0 ? p.Inventory.Backpack.GetItem((byte)InventorySlots.SLOT_RANGED).Template.WeaponSpeed : Recovery;
 
             if (CatergoryRecovery == 0 && Recovery == 0) //No cooldown
                 return;
@@ -664,9 +664,9 @@ namespace WorldServer.Game.Structs
                 Flag.HasFlag(TargetMask, (uint)SpellTargetType.TARGET_TYPE_FRIENDLY))
             {
                 ulong guid = packet.ReadUInt64();
-                Target = Database.Creatures.TryGet<WorldObject>(guid) ??
-                         Database.Players.TryGet<WorldObject>(guid) ??
-                         Database.GameObjects.TryGet<WorldObject>(guid) ??
+                Target = Database.Creatures.TryGet<WorldObject>(guid) != null ? Database.Creatures.TryGet<WorldObject>(guid) :
+                    Database.Players.TryGet<WorldObject>(guid) != null ? Database.Players.TryGet<WorldObject>(guid) :
+                    Database.GameObjects.TryGet<WorldObject>(guid) != null ? Database.GameObjects.TryGet<WorldObject>(guid) :
                          Database.Items.TryGet<WorldObject>(guid);
             }
 

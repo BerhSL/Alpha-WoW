@@ -219,7 +219,7 @@ namespace WorldServer.Game.Objects
                 }
                 else
                 {
-                    int casttime = spell.CastTime?.m_base ?? 0;
+                    int casttime = spell.CastTime.m_base;
                     if (casttime < 1500)
                         casttime = 1500;
                     else if (casttime > 3500)
@@ -332,7 +332,7 @@ namespace WorldServer.Game.Objects
             byte swingerror = 0;
             float combatAngle = (float)Math.PI;
             Player player = (this.IsTypeOf(ObjectTypes.TYPE_PLAYER) ? ((Player)this) : null);
-            Unit victim = (Database.Creatures.TryGet<Unit>(CombatTarget) ?? Database.Players.TryGet<Unit>(CombatTarget));
+            Unit victim = (Database.Creatures.TryGet<Unit>(CombatTarget) != null ? Database.Creatures.TryGet<Unit>(CombatTarget) : Database.Players.TryGet<Unit>(CombatTarget));
 
             if (victim == null)
             {
@@ -725,7 +725,7 @@ namespace WorldServer.Game.Objects
                 if (!this.UnitFlags.HasFlag((uint)Common.Constants.UnitFlags.UNIT_FLAG_IN_COMBAT))
                     Flag.SetFlag(ref UnitFlags, (uint)Common.Constants.UnitFlags.UNIT_FLAG_IN_COMBAT);
 
-                Unit target = Database.Creatures.TryGet<Unit>(damageInfo.target) ?? Database.Players.TryGet<Unit>(damageInfo.target);
+                Unit target = Database.Creatures.TryGet<Unit>(damageInfo.target) != null ? Database.Creatures.TryGet<Unit>(damageInfo.target) : Database.Players.TryGet<Unit>(damageInfo.target);
                 if (target == null)
                     return;
 
